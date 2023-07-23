@@ -7,8 +7,15 @@ import sys
 import re
 
 
-pattern = r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[.*\] "GET /projects/260 HTTP/1\.1" (200|301|400|401|403|404|405|500) \d+$'
+fp = (
+    r'\s*(?P<ip>\S+)\s*',
+    r'\s*\[(?P<date>\d+\-\d+\-\d+ \d+:\d+:\d+\.\d+)\]',
+    r'\s*"(?P<request>[^"]*)"\s*',
+    r'\s*(?P<status_code>\S+)',
+    r'\s*(?P<file_size>\d+)'
+    )
 
+log_fmt = '{}\\-{}{}{}{}\\s*'.format(fp[0], fp[1], fp[2], fp[3], fp[4])
 
 total_size = 0
 status_counts = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0,
@@ -19,7 +26,7 @@ try:
 
     for line in sys.stdin:
         line = line.strip()
-        if not re.match(pattern, line):
+        if not re.match(log_fmt, line):
             continue
 
         fields = line.split()
