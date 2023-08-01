@@ -9,6 +9,7 @@ def is_safe(board, row, col, N):
             return False
     return True
 
+
 def solve_nqueens(N):
     if N < 4:
         print("N must be at least 4")
@@ -29,6 +30,7 @@ def solve_nqueens(N):
     board = [-1] * N
     backtrack(board, 0)
 
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
@@ -45,4 +47,3 @@ if __name__ == "__main__":
         sys.exit(1)
 
     solve_nqueens(N)
-
