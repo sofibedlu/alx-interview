@@ -2,7 +2,7 @@
 
 const request = require('request');
 
-function getCharacters(movieId) {
+function getCharacters (movieId) {
   const url = `https://swapi.dev/api/films/${movieId}/`;
 
   request(url, { json: true }, (error, response, filmData) => {
